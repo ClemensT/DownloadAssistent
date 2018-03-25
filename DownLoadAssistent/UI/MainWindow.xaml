@@ -50,7 +50,7 @@
                 <Grid Background="#FFE5E5E5" Margin="34,-8,-34,78">
                     <ComboBox ItemTemplate="{StaticResource FolderPairTemplateForSelection}" Name="ConfigSelector" HorizontalAlignment="Left" Margin="63,23,0,0" VerticalAlignment="Top" Width="120"/>
 
-                    <TreeView Name="TestTree" HorizontalAlignment="Left" Height="416" Margin="238,23,0,0" VerticalAlignment="Top" Width="255">
+                    <TreeView Name="TestTree" HorizontalAlignment="Left" Height="416" Margin="238,23,0,0" VerticalAlignment="Top" Width="231">
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding SubFolderList}">
                                 <Grid>
