@@ -60,10 +60,11 @@ namespace DownLoadAssistent
             myFOlder.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(selectedFolders.SelectionChangedEventHandler);
             SelectedFolders.ItemsSource = selectedFolders.SelectedFolders;
 
+            JobManager manager = new JobManager();
 
             new Thread(new ThreadStart(() =>
                         {
-                            JobManager manager = new JobManager();
+                            
 
                             manager.AddJob(new DemoJob("a"));
                             manager.AddJob(new DemoJob("b"));
@@ -73,8 +74,8 @@ namespace DownLoadAssistent
 
                             manager.ProcessJobs();
                         })).Start();
-            
-            
+
+            JobList.ItemsSource = manager.JobList;
         }
 
 

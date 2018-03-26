@@ -43,6 +43,8 @@
                 <!--<Button Grid.Column="2"  Content="Delete" Command="{Binding deleteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}, Path=SelectedIndex}"/>-->
             </Grid>
         </DataTemplate>
+
+
     </Window.Resources>
     <Grid>
         <TabControl>
@@ -129,6 +131,18 @@
                     </Grid>
                     <Button Content="Delete" Command="{Binding deleteCommand}"  Grid.Row="1" Margin="343,0"/>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Jobs">
+
+                <ListBox Name="JobList" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="216" Margin="0,0,0,537" >
+                    <!-- , Converter={StaticResource FolderVMPathConverter} ´-->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <!--<TextBlock Text="{Binding FolderVM, Converter={StaticResource FolderVMPathConverter}}" />-->
+                            <TextBlock Text="{Binding JobProgress}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
         </TabControl>
 

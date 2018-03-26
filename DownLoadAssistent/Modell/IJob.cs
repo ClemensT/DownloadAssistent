@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DownLoadAssistent.Modell
 {
-    public enum JobProgress_e
+    public enum JobStatus_e
     {
         IDLE,
         RUNNING,
@@ -18,9 +18,11 @@ namespace DownLoadAssistent.Modell
 
     public abstract class IJob
     {
-        public JobProgress_e m_JobProgress;
+        public JobStatus_e m_JobStatus;
+        public int JobProgress { get; set; }
 
-        public abstract JobProgress_e GetProgress();
+        public abstract int GetProgress();
+        public abstract JobStatus_e GetStatus();
         public abstract void Start();
         public abstract void Stop();
         public abstract void Pause();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,17 +12,22 @@ namespace DownLoadAssistent.Modell
     {
         private Thread JobWorker;
 
-        private Queue<IJob> JobList;
+        public ObservableCollection<Queue<IJob>> JobListVM { get; set; }
+        public Queue<IJob> JobList { get; set; }
+        public Queue<IJob> JobListFinished { get; set; }
         private AutoResetEvent waitForSomethingTodo;
 
         public JobManager()
         {
-            ThreadStart JobWorkerDelegate = new ThreadStart(ProcessJobs);
-            JobWorker = new Thread(JobWorkerDelegate);
+            //ThreadStart JobWorkerDelegate = new ThreadStart(ProcessJobs);
+            //JobWorker = new Thread(JobWorkerDelegate);
             JobList = new Queue<IJob>();
+            JobListFinished = new Queue<IJob>();
             waitForSomethingTodo = new AutoResetEvent(false);
-            JobWorker.Start();
-            
+            //JobWorker.Start();
+            JobListVM = new ObservableCollection<Queue<IJob>>();
+            JobListVM.Add(JobList);
+            JobListVM.Add(JobListFinished);
         }
         
 
@@ -40,11 +46,12 @@ namespace DownLoadAssistent.Modell
         {
             while(true)
             {
-                while(JobList.Count != 0)
+                while (JobList.Count != 0)
                 {
                     IJob jobToProcess = JobList.Dequeue();
                     jobToProcess.Start();
-                }
+                    JobListFinished.Enqueue(jobToProcess);
+               }
 
                 waitForSomethingTodo.WaitOne();
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DownLoadAssistent.Modell
@@ -9,17 +10,21 @@ namespace DownLoadAssistent.Modell
     public class DemoJob : IJob
     {
         String m_content;
-        int progress;
 
-        public DemoJob(String Content )
+        public DemoJob(String Content)
         {
             m_content = Content;
-            progress = 100;
+            JobProgress = 0;
         }
 
-        public override JobProgress_e GetProgress()
+        public override JobStatus_e GetStatus()
+        { 
+            return JobStatus_e.IDLE;
+        }
+
+        public override int GetProgress()
         {
-            return this.m_JobProgress;
+            return JobProgress;
         }
 
         public override void Pause()
@@ -29,10 +34,12 @@ namespace DownLoadAssistent.Modell
 
         public override void Start()
         {
-            while(progress-- > 0)
+            while(JobProgress < 100)
             {
-                this.m_JobProgress = JobProgress_e.RUNNING;
-                Console.Write(m_content);
+                this.m_JobStatus = JobStatus_e.RUNNING;
+                System.Diagnostics.Debug.Print(m_content + " " + JobProgress);
+                Thread.Sleep(1000);
+                JobProgress++;
             }
         }
 

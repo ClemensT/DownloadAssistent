@@ -14,7 +14,14 @@ namespace DownLoadAssistent
 
         }
 
-        public override JobProgress_e GetProgress()
+
+
+        public override int GetProgress()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override JobStatus_e GetStatus()
         {
             throw new NotImplementedException();
         }
